@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const MyApp());
 }
-const String EMPTY_FORTUNE_MESSAGE = "Click the button to see your fortune";
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _currentFortune = EMPTY_FORTUNE_MESSAGE;
+  String _currentFortune = "";
   String _fortuneTitle = "";
   final _fortuneList = [
     "You'll find a new friend",
@@ -61,13 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
               fit: BoxFit.cover,
             ),
             Card(child:  
+                _fortuneTitle.isNotEmpty ? 
                 Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
                     '${_currentFortune}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
+                ) : Text(""),
             ),
             ElevatedButton(onPressed: _randomFortune, child: Icon(Icons.shuffle)),
            
