@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: .fromSeed(seedColor: Colors.lightGreen),
       ),
       home: MyHomePage(),
     );
@@ -30,8 +30,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _currentFortune = "";
-  String _fortuneTitle = EMPTY_FORTUNE_MESSAGE;
+  String _currentFortune = EMPTY_FORTUNE_MESSAGE;
+  String _fortuneTitle = "";
   final _fortuneList = [
     "You'll find a new friend",
     "You'll find a new friend tomorrow",
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       int randomNumber = Random().nextInt(_fortuneList.length);
       _currentFortune = _fortuneList[randomNumber];
-      _fortuneTitle = _currentFortune.isNotEmpty ? "Your fortune is:" : EMPTY_FORTUNE_MESSAGE;
+      _fortuneTitle = "Your fortune is:";
     });
   }
 
@@ -54,9 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            Text(
-              '${_fortuneTitle}',
-              style: Theme.of(context).textTheme.titleSmall,
+            Image.asset(
+              'assets/images/fortune_cookie.png', 
+              width: 200, 
+              height: 200, 
+              fit: BoxFit.cover,
             ),
             Card(child:  
                 Padding(
