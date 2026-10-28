@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.lightGreen),
+        useMaterial3: true
       ),
       home: MyHomePage(),
     );
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -48,7 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          "Fortune Cookie App"
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: .center,
@@ -64,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
-                    '${_currentFortune}',
+                    _currentFortune,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ) : Text(""),
