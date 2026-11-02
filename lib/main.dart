@@ -1,9 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:fortune_cookie/providers/ForturneModel.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (context) => FortuneModel(),
+    child: const MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,24 +35,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _currentFortune = "";
-  String _fortuneTitle = "";
-  final _fortuneList = [
-    "You'll find a new friend",
-    "You'll find a new friend tomorrow",
-    "Adventure can be real happiness",
-  ];
-
-  void _randomFortune() {
-    setState(() {
-      int randomNumber = Random().nextInt(_fortuneList.length);
-      _currentFortune = _fortuneList[randomNumber];
-      _fortuneTitle = "Your fortune is:";
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final fortune = Provider.of<FortuneModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -56,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/images/fortune_cookie.png', 
@@ -65,16 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
               fit: BoxFit.cover,
             ),
             Card(child:  
-                _fortuneTitle.isNotEmpty ? 
+                fortune.currentFortune.isNotEmpty ? 
                 Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
-                    _currentFortune,
+                    fortune.currentFortune,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ) : Text(""),
             ),
-            ElevatedButton(onPressed: _randomFortune, child: Icon(Icons.shuffle)),
+            ElevatedButton(onPressed: () => fortune.getRandomFortune(), child: Icon(Icons.shuffle)),
            
           ],
         ),
